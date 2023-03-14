@@ -17,7 +17,7 @@ const CreateAccount: React.FC<CreateAccountProps> = (
   const changeImage = (n: number) =>
     setImage((prev) => {
       if (prev + n < 0) return 5;
-      if (prev + n >= 5) return 0;
+      if (prev + n > 5) return 0;
       return prev + n;
     });
 
