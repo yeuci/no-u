@@ -1,17 +1,19 @@
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 // import { useHistory } from "react-router-dom";
 import User from "../../types/User";
 import "./styles.css";
 
 type homeProps = {
-  user: any;
-  setOpen: any;
+  user: string;
+  setOpen: Dispatch<SetStateAction<boolean>>;
 };
 
 const Home: React.FC<homeProps> = ({ user, setOpen }) => {
   const [gameCode, setGameCode] = useState("");
 
-  const openSettings = () => setOpen((p: User) => true);
+  const openSettings = () => setOpen((p: boolean) => !p);
+
+  const userObject: User = JSON.parse(user);
 
   return (
     <div className="home-main">
@@ -33,7 +35,7 @@ const Home: React.FC<homeProps> = ({ user, setOpen }) => {
       <button className="change-profile" onClick={openSettings}>
         <img
           style={{ height: "50px" }}
-          src={`./images/${JSON.parse(user).image}.png`}
+          src={`./images/${userObject.image}.png`}
           alt="Profile"
         />
       </button>

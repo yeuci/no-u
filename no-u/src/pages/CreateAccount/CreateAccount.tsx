@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { random, left, right } from "./icons";
 import "./styles.css";
 
 interface CreateAccountProps {
-  setUser: any;
-  setOpen: any;
+  setUser: Dispatch<SetStateAction<string | null>>;
+  setOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 const CreateAccount: React.FC<CreateAccountProps> = (
@@ -15,8 +15,12 @@ const CreateAccount: React.FC<CreateAccountProps> = (
   const [image, setImage] = useState(0);
   const [name, setName] = useState("");
 
-  const randomize = () => setImage((prev) => Math.floor(Math.random() * 5) + 1);
-  const changeUser = (e: any) => setName(e.target.value);
+  const randomize = () =>
+    setImage((prev: number) => Math.floor(Math.random() * 5) + 1);
+  const changeUser = (e: React.FormEvent<EventTarget>) => {
+    const target = e.target as HTMLInputElement;
+    setName(target.value);
+  };
   const changeImage = (n: number) =>
     setImage((prev) => {
       if (prev + n < 0) return 5;
@@ -27,7 +31,7 @@ const CreateAccount: React.FC<CreateAccountProps> = (
   const saveUser = () => {
     localStorage.setItem("user", JSON.stringify({ name, image }));
     props.setOpen((p: boolean) => false);
-    props.setUser((p: any) => {
+    props.setUser((p: string | null) => {
       return JSON.stringify({ name, image });
     });
   };
