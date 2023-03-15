@@ -1,0 +1,25 @@
+To generate SSL certificate:
+
+In the server's root directory (no-u-server), run the following scripts in the terminal:
+
+** Create a directory to store credentials **
+
+mkdir ssl_cert
+
+** navigate to the directory **
+
+cd ssl_cert
+
+** Generate a Private Key **
+
+openssl genrsa -out server.pem
+
+** Create a Certificate Signing Request **
+
+openssl req -new -key server.pem -out csr.pem
+
+** Enter the requested information or press 'Enter' **
+
+** Generate the SSL Certificate **
+
+openssl x509 -req -days 365 -in csr.pem -signkey server.pem -out server.crt

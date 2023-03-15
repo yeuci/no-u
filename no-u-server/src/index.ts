@@ -1,11 +1,26 @@
 import express from "express";
-const app = express();
-const port = 8080;
-const cors = require("cors");
-const io = require("socket.io");
+import { createServer } from 'https';
+import fs from 'fs';
+import cors from 'cors';
+import { Server } from 'socket.io';
 
+const CREDENTIALS = {
+  key: fs.readFileSync(`${__dirname}/../ssl_cert/server.pem`),
+  cert: fs.readFileSync(`${__dirname}/../ssl_cert/server.crt`)
+};
+
+const OPTIONS = {
+  cors: { origin: '*'}
+};
+
+const app = express();
 app.use(express.json());
 app.use(cors());
+
+const httpsServer = createServer(CREDENTIALS, app);
+const io = new Server(httpsServer, OPTIONS);
+
+const SECURE_PORT = 8443;
 
 const SOLO_SERVER_ROOMS = {};
 const DUO_SERVER_ROOMS = {};
@@ -22,10 +37,14 @@ app.get("/", (req, res) => {
 });
 
 io.on("connection", (socket) => {
-  socket.on("login", ({ name, room }, callback) => {});
-  socket.on("disconnect", () => {});
+  socket.on("login", ({ name, room }, callback) => {
+    console.log(`user: {name} has logged into room: {room}`);
+  });
+  socket.on("disconnect", () => {
+    console.log('a user has disconnected');
+  });
 });
 
-app.listen(port, () => {
-  console.log(`Express server listening on  port: ${port}`);
+app.listen(SECURE_PORT, () => {
+  console.log(`Express server listening on https port: ${SECURE_PORT}`)
 });
