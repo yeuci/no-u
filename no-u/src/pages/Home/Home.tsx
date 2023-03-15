@@ -1,11 +1,17 @@
 import React, { useState } from "react";
 // import { useHistory } from "react-router-dom";
+import User from "../../types/User";
 import "./styles.css";
 
-type homeProps = {};
+type homeProps = {
+  user: any;
+  setOpen: any;
+};
 
-const Home: React.FC<homeProps> = () => {
+const Home: React.FC<homeProps> = ({ user, setOpen }) => {
   const [gameCode, setGameCode] = useState("");
+
+  const openSettings = () => setOpen((p: User) => true);
 
   return (
     <div className="home-main">
@@ -24,6 +30,13 @@ const Home: React.FC<homeProps> = () => {
           />
         </div>
       </div>
+      <button className="change-profile" onClick={openSettings}>
+        <img
+          style={{ height: "50px" }}
+          src={`./images/${JSON.parse(user).image}.png`}
+          alt="Profile"
+        />
+      </button>
     </div>
   );
 };

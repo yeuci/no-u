@@ -1,9 +1,12 @@
+"use client";
+
 import React, { useState } from "react";
 import { random, left, right } from "./icons";
 import "./styles.css";
 
 interface CreateAccountProps {
   setUser: any;
+  setOpen: any;
 }
 
 const CreateAccount: React.FC<CreateAccountProps> = (
@@ -23,8 +26,9 @@ const CreateAccount: React.FC<CreateAccountProps> = (
 
   const saveUser = () => {
     localStorage.setItem("user", JSON.stringify({ name, image }));
+    props.setOpen((p: boolean) => false);
     props.setUser((p: any) => {
-      return { name, image };
+      return JSON.stringify({ name, image });
     });
   };
 
