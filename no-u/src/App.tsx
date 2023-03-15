@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { CreateAccount } from "./pages";
+import { CreateAccount, Home } from "./pages";
+import "./index.css";
 
 function App() {
   const [newUser, setNewUser] = useState(localStorage.getItem("user"));
@@ -7,7 +8,7 @@ function App() {
   return (
     <div className="App">
       {!newUser && <CreateAccount setUser={setNewUser} />}
-      <h1>UNO</h1>
+      <Home />
     </div>
   );
 }
