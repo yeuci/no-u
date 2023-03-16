@@ -1,24 +1,17 @@
 .create-account-main {
-  background-color: rgba(0, 0, 0, 0.5);
-  width: 100%;
-  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 .create-account-mid {
-  background-color: rgba(0, 0, 0, 0.3);
+  padding-top: 1rem;
   width: 330px;
   max-width: 600px;
   display: flex;
   justify-content: center;
   flex-direction: column;
-  margin-bottom: 10rem;
 }
 
 .character-img {
@@ -35,8 +28,20 @@
 }
 
 .random {
-  outline: none;
-  border: none;
-  background: none;
+  width: fit-content;
+  margin: 0 auto;
   cursor: pointer;
+}
+.create-account-character-change-button:hover {
+  cursor: pointer;
+}
+
+.create-account-input {
+  padding: 0.5rem 1rem;
+  margin-top: 1rem;
+}
+
+.create-account-go-button {
+  cursor: pointer;
+  padding: 0.5rem 1rem;
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { Dispatch, SetStateAction, useState } from "react";
+import Modal from "../../components/Modal/Modal";
 import { random, left, right } from "./icons";
 import "./styles.css";
 
@@ -37,28 +38,43 @@ const CreateAccount: React.FC<CreateAccountProps> = (
   };
 
   return (
-    <div className="create-account-main">
-      <div className="create-account-mid">
-        <button onClick={randomize} className="random">
-          {random}
-        </button>
-        <div className="create-account-character">
-          <button onClick={() => changeImage(-1)}>{left}</button>
-          <img
-            className="character-img"
-            alt="Account"
-            src={`./images/${image}.png`}
-          />
-          <button onClick={() => changeImage(1)}>{right}</button>
+    <Modal onClose={() => props.setOpen(false)}>
+      <div className="create-account-main">
+        <div className="create-account-mid">
+          <div className="create-account-character">
+            <button
+              onClick={() => changeImage(-1)}
+              className="create-account-character-change-button"
+            >
+              {left}
+            </button>
+            <img
+              className="character-img"
+              alt="Account"
+              src={`./images/${image}.png`}
+            />
+            <button
+              onClick={() => changeImage(1)}
+              className="create-account-character-change-button"
+            >
+              {right}
+            </button>
+          </div>
+          <button onClick={randomize} className="random">
+            {random}
+          </button>
+          <input
+            value={name}
+            onChange={changeUser}
+            placeholder="Enter your name"
+            className={"create-account-input"}
+          ></input>
+          <button onClick={saveUser} className="create-account-go-button">
+            Go
+          </button>
         </div>
-        <input
-          value={name}
-          onChange={changeUser}
-          placeholder="Enter your name"
-        ></input>
-        <button onClick={saveUser}>Go</button>
       </div>
-    </div>
+    </Modal>
   );
 };
 
